@@ -7,6 +7,7 @@ import vng.hiepit.objects.Place;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -70,25 +71,43 @@ public class PlaceDetailsActivity extends Activity {
 
 	public void updatePlaceDetails(Place place,
 			PlaceDetailsViewHolder detailsHolder) {
+		// Name
 		detailsHolder.tvName.setText(place.getmName());
+		// Short Address Temperary
 		detailsHolder.tvVicinity.setText(place.getmVicinty());
+		// Distance
 		detailsHolder.tvDistance.setText(place.getDistance());
-		String photoURI = new GooglePlacePhotos(place.getmPhotoReference())
-				.genUri();
 
-		Picasso.with(PlaceDetailsActivity.this).load(photoURI)
-				.error(R.drawable.placeholder)
-				.placeholder(R.drawable.placeholder)
-				.into(detailsHolder.mainPhoto);
+		// Show photo
+		if (place.getmPhotoReference() != null) {
+			String photoURI = new GooglePlacePhotos(place.getmPhotoReference())
+					.genUri();
+			
+			Log.d("PlaceDetailsActivity", photoURI);
+			Picasso.with(PlaceDetailsActivity.this).load(photoURI)
+					.error(R.drawable.placeholder)
+					.placeholder(R.drawable.placeholder)
+					.into(detailsHolder.mainPhoto);
+		}
 
-		// Update details information
+		// Update more details information
 		if (place.getPlaceDetails() != null) {
-			detailsHolder.tvVicinity.setText(place.getPlaceDetails()
-					.getmFormattedAddress());
-			detailsHolder.tvPhoneNumber.setText("Phone: " + place.getPlaceDetails()
-					.getmLocalPhoneNumber());
-			detailsHolder.tvInterPhoneNumber.setText("International phone: " + place.getPlaceDetails()
-					.getmInternationPhoneNumber());
+			// Full address
+			if (place.getPlaceDetails().getmFormattedAddress() != null)
+				detailsHolder.tvVicinity.setText(place.getPlaceDetails()
+						.getmFormattedAddress());
+
+			// Phone number
+			if (place.getPlaceDetails().getmLocalPhoneNumber() != null)
+				detailsHolder.tvPhoneNumber.setText("Phone: "
+						+ place.getPlaceDetails().getmLocalPhoneNumber());
+
+			// International phone number
+			if (place.getPlaceDetails().getmInternationPhoneNumber() != null)
+				detailsHolder.tvInterPhoneNumber
+						.setText("International phone: "
+								+ place.getPlaceDetails()
+										.getmInternationPhoneNumber());
 		}
 	}
 

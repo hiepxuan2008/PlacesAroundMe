@@ -1,5 +1,6 @@
 package vng.hiepit.gps;
 
+import vng.hiepit.placenearme.R;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -109,12 +110,12 @@ public class GPSTracker extends Service implements LocationListener {
 	}
 
 	public void showSettingsAlert() {
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
 
-		alertDialog.setTitle("GPS Settings");
+		alertDialog.setTitle("GPS Disabled");
 		alertDialog
-				.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-		alertDialog.setPositiveButton("Settings",
+				.setMessage("Your GPS seems to be disabled. Do you want to enable it?");
+		alertDialog.setPositiveButton("SETTINGS",
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -125,7 +126,7 @@ public class GPSTracker extends Service implements LocationListener {
 					}
 				});
 
-		alertDialog.setNegativeButton("Cancel",
+		alertDialog.setNegativeButton("SKIP",
 				new DialogInterface.OnClickListener() {
 
 					@Override

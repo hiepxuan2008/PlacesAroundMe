@@ -2780,7 +2780,8 @@ reds
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b0139;
+        public static final int AppBaseTheme=0x7f0b013a;
+        public static final int AppCompatAlertDialogStyle=0x7f0b0139;
         /**  Application theme. 
          */
         public static final int AppTheme=0x7f0b0134;

@@ -26,5 +26,11 @@
         <item name="android:textColor">@color/placePrimaryTextColor</item>
         <item name="android:textSize">18sp</item>
     </style>
+    
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/md_green_A700</item>
+        <item name="android:textColorPrimary">@color/md_black_1000</item>
+        <item name="android:background">@color/md_white_1000</item>
+    </style>
 
 </resources>

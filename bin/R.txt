@@ -912,7 +912,8 @@ int style AlertDialog_AppCompat 0x7f0b0042
 int style AlertDialog_AppCompat_Light 0x7f0b0043
 int style Animation_AppCompat_Dialog 0x7f0b0049
 int style Animation_AppCompat_DropDownUp 0x7f0b004a
-int style AppBaseTheme 0x7f0b0139
+int style AppBaseTheme 0x7f0b013a
+int style AppCompatAlertDialogStyle 0x7f0b0139
 int style AppTheme 0x7f0b0134
 int style Base_AlertDialog_AppCompat 0x7f0b00cc
 int style Base_AlertDialog_AppCompat_Light 0x7f0b00cd

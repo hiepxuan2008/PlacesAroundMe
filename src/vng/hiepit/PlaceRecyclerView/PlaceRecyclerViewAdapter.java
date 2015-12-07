@@ -85,6 +85,8 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter {
 						.error(R.drawable.placeholder)
 						.placeholder(R.drawable.placeholder)
 						.into(placeViewHolder.thumbnail);
+			} else {
+				placeViewHolder.thumbnail.setImageResource(R.drawable.placeholder);
 			}
 			// Title
 			placeViewHolder.title.setText(placeItem.getmName());

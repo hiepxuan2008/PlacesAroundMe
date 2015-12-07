@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	private PlaceRecyclerViewAdapter mPlaceRecyclerViewAdapter;
 	static public PlacesList mPlacesList;
 	static public Location mLocation;
+	boolean isSettingGPS = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,23 +73,12 @@ public class MainActivity extends Activity {
 
 		mGPSTracker = new GPSTracker(MainActivity.this);
 		if (mGPSTracker.canGetLocation()) {
-			double latitude = mGPSTracker.getLatitude();
-			double longitude = mGPSTracker.getLongitude();
-			mLocation = new Location(latitude, longitude);
-			Log.d(MainActivity.class.getName(), "latitude: " + latitude
-					+ "\nlongitude: " + longitude);
-
-			Toast.makeText(
-					getBaseContext(),
-					(String) "My location is: \nLatitude: " + latitude
-							+ "\nLongitude: " + longitude, Toast.LENGTH_SHORT)
-					.show();
-
-			// Start
-			new ProcessGooglePlaceSearch(new Location(latitude, longitude))
-					.execute();
+			updateData();
+			isSettingGPS = false;
 		} else {
 			mGPSTracker.showSettingsAlert();
+			isSettingGPS = true;
+			Log.d("GPSTracker", "showSettingsAlert");
 		}
 	}
 
@@ -137,4 +127,36 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	public void updateData() {
+		double latitude = mGPSTracker.getLatitude();
+		double longitude = mGPSTracker.getLongitude();
+		mLocation = new Location(latitude, longitude);
+		Log.d(MainActivity.class.getName(), "latitude: " + latitude
+				+ "\nlongitude: " + longitude);
+
+		Toast.makeText(
+				getBaseContext(),
+				(String) "My location is: \nLatitude: " + latitude
+						+ "\nLongitude: " + longitude, Toast.LENGTH_SHORT)
+				.show();
+
+		// Start
+		new ProcessGooglePlaceSearch(new Location(latitude, longitude))
+				.execute();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d("ResumeTag", "OnResume!");
+		if (isSettingGPS) {
+			mGPSTracker.getLocation();
+			if (mGPSTracker.canGetLocation()) {
+				updateData();
+				isSettingGPS = false;
+			}
+		}
+	}
+
 }
