@@ -1,0 +1,30 @@
+<resources>
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+    
+    <style name="ThemeBase" parents="AppTheme">
+        <item name="colorPrimary">@color/placePrimaryBackgroundColor</item>
+        <item name="colorPrimaryDark">@color/placeSecondaryBackgroundColor</item>
+        <item name="colorAccent">@color/placeColorBackgroundAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/placeBackgroundColor</item>
+    </style>
+    
+    <style name="Theme.Place" parent="ThemeBase" />
+    
+    <style name="ActionBarThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@color/placePrimaryTextColor</item>
+    	<item name="colorControlHighlight">@color/placeBackgroundColor</item>
+    	<item name="android:actionMenuTextColor">@color/placePrimaryTextColor</item>
+    	<item name="android:textColorSecondary">@color/placeSecondaryTextColor</item>
+    	<item name="android:background">@color/placePrimaryBackgroundColor</item>
+    </style>
+    
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/placePrimaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

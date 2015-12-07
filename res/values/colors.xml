@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="placePrimaryBackgroundColor">@color/md_blue_500</color>
+    <color name="placeSecondaryBackgroundColor">@color/md_blue_700</color>
+    <color name="placeColorBackgroundAccent">@color/md_pink_500</color>
+    <color name="placeBackgroundColor">@color/md_grey_600</color>
+    <color name="placePrimaryTextColor">@color/md_white_1000</color>
+    <color name="placeSecondaryTextColor">@color/md_yellow_500</color>
+</resources>
