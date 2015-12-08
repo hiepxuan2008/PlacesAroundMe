@@ -1,5 +1,6 @@
 package vng.hiepit.placenearme;
 
+import vng.hiepit.PhotoLoader.PhotoLoader;
 import vng.hiepit.PlaceRecyclerView.PlaceDetailsViewHolder;
 import vng.hiepit.googleplaceswebservice.GooglePlaceDetails;
 import vng.hiepit.googleplaceswebservice.GooglePlacePhotos;
@@ -12,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 public class PlaceDetailsActivity extends Activity {
 
@@ -80,12 +79,14 @@ public class PlaceDetailsActivity extends Activity {
 
 		// Show photo
 		if (place.getmPhotoReference() != null) {
+			int maxWidth = 400;
 			String photoURI = new GooglePlacePhotos(place.getmPhotoReference())
-					.genUri();
-			
+					.setMaxWidth(maxWidth).genUri();
+			String cacheFileName = place.getmPlaceId() + "_" + maxWidth;
+
 			Log.d("PlaceDetailsActivity", photoURI);
-			Picasso.with(PlaceDetailsActivity.this).load(photoURI)
-					.error(R.drawable.placeholder)
+			PhotoLoader.with(PlaceDetailsActivity.this)
+					.load(cacheFileName, photoURI)
 					.placeholder(R.drawable.placeholder)
 					.into(detailsHolder.mainPhoto);
 		}

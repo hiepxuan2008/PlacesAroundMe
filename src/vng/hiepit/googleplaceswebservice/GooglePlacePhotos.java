@@ -5,28 +5,29 @@ import android.net.Uri;
 public class GooglePlacePhotos extends GooglePlacesAPIWebService{
 	public static final String URL = "https://maps.googleapis.com/maps/api/place/photo";
 	String mPhotoReference;
-	int maxWidth;
+	int maxWidth = 400;
 	int maxHeight;
 
 	public GooglePlacePhotos(String mPhotoReference) {
 		this.mPhotoReference = mPhotoReference;
-		this.maxWidth = 400;
 	}
 
 	public int getMaxWidth() {
 		return maxWidth;
 	}
 
-	public void setMaxWidth(int maxWidth) {
+	public GooglePlacePhotos setMaxWidth(int maxWidth) {
 		this.maxWidth = maxWidth;
+		return this;
 	}
 
 	public int getMaxHeight() {
 		return maxHeight;
 	}
 
-	public void setMaxHeight(int maxHeight) {
+	public GooglePlacePhotos setMaxHeight(int maxHeight) {
 		this.maxHeight = maxHeight;
+		return this;
 	}
 
 	public String getmPhotoReference() {

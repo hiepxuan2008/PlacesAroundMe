@@ -21,13 +21,11 @@ public class GooglePlaceSearch extends GooglePlacesAPIWebService {
 	String mName;
 
 	PlacesList mPlacesList;
-	public GooglePlaceSearchType searchType;
 
 	public GooglePlaceSearch(Location location) {
 		super();
 		this.mLocation = location;
 		this.mRadius = 500;
-		searchType = GooglePlaceSearchType.NEW;
 
 		this.mPlacesList = new PlacesList();
 		updateURI();
@@ -38,7 +36,6 @@ public class GooglePlaceSearch extends GooglePlacesAPIWebService {
 		this.mNextPageToken = placesList.next_page_token;
 		this.mPlacesList = placesList;
 
-		searchType = GooglePlaceSearchType.UPDATE;
 		updateURI();
 	}
 

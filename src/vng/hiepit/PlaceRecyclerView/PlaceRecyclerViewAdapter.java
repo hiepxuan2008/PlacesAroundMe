@@ -1,5 +1,6 @@
 package vng.hiepit.PlaceRecyclerView;
 
+import vng.hiepit.PhotoLoader.PhotoLoader;
 import vng.hiepit.googleplaceswebservice.GooglePlacePhotos;
 import vng.hiepit.objects.Place;
 import vng.hiepit.objects.PlacesList;
@@ -13,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.squareup.picasso.Picasso;
-
 @SuppressWarnings("rawtypes")
 public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter {
 	private final int VIEW_ITEM = 1;
@@ -23,32 +22,32 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter {
 	private PlacesList mPlacesList;
 	private Context mContext;
 	private RecyclerView mRecyclerView;
-	
-	
+
 	private OnLoadMoreListener onLoadMoreListener;
 	private boolean isLoading = false;
 	private int visibleThreshold = 1;
 
-	public PlaceRecyclerViewAdapter(Context context, PlacesList placesList, RecyclerView recyclerView) {
+	public PlaceRecyclerViewAdapter(Context context, PlacesList placesList,
+			RecyclerView recyclerView) {
 		this.mContext = context;
 		this.mPlacesList = placesList;
 		this.mRecyclerView = recyclerView;
-		
-		//Add event ScrollListener to check end of list
+
+		// Add event ScrollListener to check end of list
 		mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
-			public void onScrolled(RecyclerView recyclerView,
-								   int dx, int dy) {
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 				super.onScrolled(recyclerView, dx, dy);
 
 				final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
 						.getLayoutManager();
-				
+
 				int totalItemCount = linearLayoutManager.getItemCount();
 				int lastVisibleItem = linearLayoutManager
 						.findLastVisibleItemPosition();
-				
-				if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+
+				if (!isLoading
+						&& totalItemCount <= (lastVisibleItem + visibleThreshold)) {
 					// End has been reached
 					// Do something
 					Log.d("MainActivity", "Reach to end!");
@@ -78,15 +77,17 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter {
 
 			// If this place supports thumbnail photo -> Load
 			if (placeItem.getmPhotoReference() != null) {
+				int maxWidth = 100; //File width size 100px
 				String photoURI = new GooglePlacePhotos(
-						placeItem.getmPhotoReference()).genUri();
+						placeItem.getmPhotoReference()).setMaxWidth(maxWidth).genUri();
+				String cacheFileName = placeItem.getmPlaceId() + "_" + maxWidth; 
 
-				Picasso.with(mContext).load(photoURI)
-						.error(R.drawable.placeholder)
+				PhotoLoader.with(mContext).load(cacheFileName, photoURI)
 						.placeholder(R.drawable.placeholder)
 						.into(placeViewHolder.thumbnail);
 			} else {
-				placeViewHolder.thumbnail.setImageResource(R.drawable.placeholder);
+				placeViewHolder.thumbnail
+						.setImageResource(R.drawable.placeholder);
 			}
 			// Title
 			placeViewHolder.title.setText(placeItem.getmName());
@@ -129,7 +130,7 @@ public class PlaceRecyclerViewAdapter extends RecyclerView.Adapter {
 	public Place getPlace(int position) {
 		return mPlacesList == null ? null : mPlacesList.places.get(position);
 	}
-	
+
 	public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
 		this.onLoadMoreListener = onLoadMoreListener;
 	}
